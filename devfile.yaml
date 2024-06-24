@@ -23,14 +23,55 @@ projects:
       remotes:
         origin: "https://github.com/Demo-AI-Edge-Crazy-Train/train-monitoring-app.git"
 components:
-  - name: java-plugin
+  - name: tools
     container:
-      image: "quay.io/eclipse/che-java11-maven:nightly"
-      memoryLimit: "512Mi"
-  - name: theia-editor
+      image: "registry.redhat.io/devspaces/udi-rhel8:3.3"
+      args: ['tail', '-f', '/dev/null']
+      memoryLimit: 5.07G
+      memoryRequest: 256Mi
+      mountSources: true
+      volumeMounts:
+        - name: m2
+          path: /home/user/.m2
+      endpoints:
+        - exposure: none
+          name: debug
+          protocol: tcp
+          targetPort: 5005
+      env:
+        - name: QUARKUS_HTTP_HOST
+          value: 0.0.0.0
+        - name: CHE_DASHBOARD_URL
+          value: 'https://devspaces.apps.cluster-5f8lw.dynamic.redhatworkshops.io/dashboard'
+        - name: CHE_PLUGIN_REGISTRY_URL
+          value: 'https://devspaces.apps.cluster-5f8lw.dynamic.redhatworkshops.io/plugin-registry/v3'
+        - name: CHE_PLUGIN_REGISTRY_INTERNAL_URL
+          value: 'http://plugin-registry.openshift-devspaces.svc:8080/v3'
+        - name: OPENVSX_REGISTRY_URL
+          value: 'https://open-vsx.org'
+        - name: MAVEN_OPTS
+          value: -Dmaven.repo.local=/home/user/.m2/repository
+        - name: MAVEN_USER_HOME
+          value: /home/user/.m2
+        - name: HOME
+          value: /home/user
+  - name: m2
+    volume:
+      size: 3Gi
+  - name: kube
+    volume: {}
+  - name: openshift
     container:
-      image: "quay.io/eclipse/che-theia:next"
-      memoryLimit: "1Gi"
+      image: quay.io/openshift/origin-cli:4.15
+      command: ["tail", "-f", "/dev/null"]
+      memoryLimit: 512Mi
+      mountSources: true
+      volumeMounts:
+        - name: kube
+          path: /home/user/.kube
+      env:
+        - name: PATH
+          value: '/tmp/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin'
   - name: kafka
     kubernetes:
       inlined: |
@@ -50,6 +91,28 @@ components:
             spec:
               containers:
               - name: kafka
-                image: confluentinc/cp-kafka:latest
+                image: registry.redhat.io/amq7/amq-streams-kafka-28:1.7
                 ports:
                 - containerPort: 9092
+  - name: mosquitto
+    kubernetes:
+      inlined: |
+        apiVersion: apps/v1
+        kind: Deployment
+        metadata:
+          name: mosquitto
+        spec:
+          replicas: 1
+          selector:
+            matchLabels:
+              app: mosquitto
+          template:
+            metadata:
+              labels:
+                app: mosquitto
+            spec:
+              containers:
+              - name: mosquitto
+                image: eclipse-mosquitto:latest
+                ports:
+                - containerPort: 1883
