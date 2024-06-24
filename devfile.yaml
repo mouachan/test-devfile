@@ -24,11 +24,13 @@ projects:
         origin: "https://github.com/Demo-AI-Edge-Crazy-Train/train-monitoring-app.git"
 components:
   - name: java-plugin
-    plugin:
-      id: redhat/java/latest
+    container:
+      image: "quay.io/eclipse/che-java11-maven:nightly"
+      memoryLimit: "512Mi"
   - name: theia-editor
-    plugin:
-      id: eclipse/che-theia/latest
+    container:
+      image: "quay.io/eclipse/che-theia:next"
+      memoryLimit: "1Gi"
   - name: kafka
     kubernetes:
       inlined: |
