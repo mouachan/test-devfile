@@ -1,3 +1,4 @@
+schemaVersion: 2.1.0
 metadata:
   name: demo-ai-edge-crazy-train
 projects:
@@ -27,35 +28,25 @@ components:
     id: redhat/java/latest
   - type: cheEditor
     id: eclipse/che-theia/latest
-  - type: dockerimage
-    alias: quarkus
-    image: quay.io/quarkus/centos-quarkus-maven:21.0.0.2-java11
-    memoryLimit: 512Mi
-    mountSources: true
-    endpoints:
-      - name: '8080/tcp'
-        port: 8080
-  - type: kafka
-    alias: myKafka
-    version: 2.7.0
-    zookeeper:
-      memoryLimit: 512Mi
-    broker:
-      memoryLimit: 512Mi
-  - type: dockerimage
-    alias: mosquitto
-    image: eclipse-mosquitto:2.0.11
-    memoryLimit: 256Mi
-    endpoints:
-      - name: '1883/tcp'
-        port: 1883
-  - type: dockerimage
-    alias: kafdrop
-    image: obsidiandynamics/kafdrop:latest
-    memoryLimit: 512Mi
-    endpoints:
-      - name: '9000/tcp'
-        port: 9000
-    env:
-      - name: KAFKA_BROKERCONNECT
-        value: localhost:9092
+  - name: kafka
+    kubernetes:
+      inlined: |
+        apiVersion: apps/v1
+        kind: Deployment
+        metadata:
+          name: kafka
+        spec:
+          replicas: 1
+          selector:
+            matchLabels:
+              app: kafka
+          template:
+            metadata:
+              labels:
+                app: kafka
+            spec:
+              containers:
+              - name: kafka
+                image: confluentinc/cp-kafka:latest
+                ports:
+                - containerPort: 9092
