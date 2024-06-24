@@ -3,31 +3,32 @@ metadata:
   name: demo-ai-edge-crazy-train
 projects:
   - name: train-capture-image-app
-    source:
-      type: git
-      location: "https://github.com/Demo-AI-Edge-Crazy-Train/train-capture-image-app.git"
+    git:
+      remotes:
+        origin: "https://github.com/Demo-AI-Edge-Crazy-Train/train-capture-image-app.git"
   - name: train-ceq-app
-    source:
-      type: git
-      location: "https://github.com/Demo-AI-Edge-Crazy-Train/train-ceq-app.git"
-  - name: intellligent-train
-    source:
-      type: git
-      location: "https://github.com/Demo-AI-Edge-Crazy-Train/intelligent-train.git"
+    git:
+      remotes:
+        origin: "https://github.com/Demo-AI-Edge-Crazy-Train/train-ceq-app.git"
+  - name: intelligent-train
+    git:
+      remotes:
+        origin: "https://github.com/Demo-AI-Edge-Crazy-Train/intelligent-train.git"
   - name: train-controller
-    source:
-      type: git
-      location: "https://github.com/Demo-AI-Edge-Crazy-Train/train-controller.git"
+    git:
+      remotes:
+        origin: "https://github.com/Demo-AI-Edge-Crazy-Train/train-controller.git"
   - name: train-monitoring-app
-    source:
-      type: git
-      location: "https://github.com/Demo-AI-Edge-Crazy-Train/train-monitoring-app.git"
-  # Add more projects as needed
+    git:
+      remotes:
+        origin: "https://github.com/Demo-AI-Edge-Crazy-Train/train-monitoring-app.git"
 components:
-  - type: chePlugin
-    id: redhat/java/latest
-  - type: cheEditor
-    id: eclipse/che-theia/latest
+  - name: java-plugin
+    plugin:
+      id: redhat/java/latest
+  - name: theia-editor
+    plugin:
+      id: eclipse/che-theia/latest
   - name: kafka
     kubernetes:
       inlined: |
