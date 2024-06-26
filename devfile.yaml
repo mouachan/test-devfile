@@ -78,16 +78,7 @@ components:
           path: /home/user/.kube
       env:
         - name: PATH
-          value: '/tmp/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin'
-  - name: cli
-    container:
-      image: 'quay.io/eclipse/che-sidecar-openshift-connector:0.1.2-2601509'
-      memoryLimit: 256Mi
-      endpoints:
-        - name: 'openshift-cli'
-          protocol: 'tcp'
-          targetPort: 8080
-          exposure: 'public'      
+          value: '/tmp/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin'     
   - name: kafka
     kubernetes:
       inlined: |
