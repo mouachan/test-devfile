@@ -1,6 +1,12 @@
 schemaVersion: 2.1.0
 metadata:
   name: demo-ai-edge-crazy-train
+  description: "Demo AI Edge Crazy Train"
+attributes:
+  controller.devfile.io/devworkspace-config:
+    name: devworkspace-config
+    namespace: openshift-devspaces
+  controller.devfile.io/storage-type: per-user
 projects:
   - name: train-capture-image-app
     git:
@@ -22,6 +28,7 @@ projects:
     git:
       remotes:
         origin: "https://github.com/Demo-AI-Edge-Crazy-Train/train-monitoring-app.git"
+      
 components:
   - name: tools
     container:
@@ -137,3 +144,7 @@ commands:
       component: cli
       commandLine: "oc scale deployment mosquitto --replicas=1"
       workingDir: "/"
+events:
+  postStart:
+    - start-kafka
+    - start-mosquitto
