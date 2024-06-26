@@ -107,7 +107,7 @@ components:
         - "sh"
         - "-c"
         - >
-          until nc -z localhost 2181; do
+          until echo > /dev/tcp/localhost/2181; do
             echo 'Waiting for Zookeeper...'
             sleep 1
           done
@@ -125,7 +125,7 @@ components:
         - name: KAFKA_ADVERTISED_LISTENERS
           value: "PLAINTEXT://kafka:29092,PLAINTEXT_HOST://localhost:9092"
         - name: KAFKA_ZOOKEEPER_CONNECT
-          value: "zookeeper:2181"
+          value: "localhost:2181"
         - name: KAFKA_GROUP_MAX_SESSION_TIMEOUT_MS
           value: "600000"
       endpoints:
