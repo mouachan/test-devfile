@@ -154,3 +154,6 @@ commands:
       component: tools
       env: []
       workingDir: "/"
+events:
+  preStart:
+    - install-maven
