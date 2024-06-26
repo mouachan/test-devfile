@@ -67,7 +67,7 @@ components:
       size: 3Gi
   - name: kube
     volume: {}
-  - name: openshift-cli
+  - name: openshift
     container:
       image: quay.io/openshift/origin-cli:4.11
       command: ["tail", "-f", "/dev/null"]
@@ -78,7 +78,7 @@ components:
           path: /home/user/.kube
       env:
         - name: PATH
-          value: '/tmp/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin'     
+          value: '/tmp/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin'    
   - name: kafka
     kubernetes:
       inlined: |
@@ -124,25 +124,25 @@ components:
                 ports:
                 - containerPort: 1883
 commands:
-
+  
   - id: start-kafka
     exec:
-      component: openshift-cli
+      component: openshift
       commandLine: "oc scale deployment kafka --replicas=3"
       workingDir: "/"
   - id: stop-kafka
     exec:
-      component: openshift-cli
+      component: openshift
       commandLine: "oc scale deployment kafka --replicas=0"
       workingDir: "/"
   - id: start-mosquitto
     exec:
-      component: openshift-cli
+      component: openshift
       commandLine: "oc scale deployment mosquitto --replicas=3"
       workingDir: "/"
   - id: start-mosquitto
     exec:
-      component: openshift-cli
+      component: openshift
       commandLine: "oc scale deployment mosquitto --replicas=1"
       workingDir: "/"
 events:
