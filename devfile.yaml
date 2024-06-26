@@ -69,7 +69,7 @@ components:
     volume: {}
   - name: openshift-cli
     container:
-      image: quay.io/openshift/origin-cli:4.15
+      image: quay.io/openshift/origin-cli:4.11
       command: ["tail", "-f", "/dev/null"]
       memoryLimit: 512Mi
       mountSources: true
