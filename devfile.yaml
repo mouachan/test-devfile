@@ -143,3 +143,14 @@ components:
   #     endpoints:
   #       - name: kafdrop-port
   #         targetPort: 9000  
+
+commands:
+  - id: install-maven
+    exec:
+      commandLine: |
+        curl -fsSL https://archive.apache.org/dist/maven/maven-3/3.8.2/binaries/apache-maven-3.8.2-bin.tar.gz | tar -xzC /usr/share \
+        && mv /usr/share/apache-maven-3.8.2 /usr/share/maven \
+        && ln -s /usr/share/maven/bin/mvn /usr/bin/mvn
+      component: tools
+      env: []
+      workingDir: "/"
