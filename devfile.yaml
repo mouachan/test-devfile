@@ -116,3 +116,24 @@ components:
                 image: eclipse-mosquitto:latest
                 ports:
                 - containerPort: 1883
+commands:
+  - id: start-kafka
+    exec:
+      component: cli
+      commandLine: "oc scale deployment kafka --replicas=3"
+      workingDir: "/"
+  - id: stop-kafka
+    exec:
+      component: cli
+      commandLine: "oc scale deployment kafka --replicas=0"
+      workingDir: "/"
+  - id: start-mosquitto
+    exec:
+      component: cli
+      commandLine: "oc scale deployment mosquitto --replicas=3"
+      workingDir: "/"
+  - id: start-mosquitto
+    exec:
+      component: cli
+      commandLine: "oc scale deployment mosquitto --replicas=1"
+      workingDir: "/"
