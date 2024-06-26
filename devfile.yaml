@@ -155,5 +155,5 @@ commands:
       env: []
       workingDir: "/"
 events:
-  preStart:
+  postStart:
     - install-maven
