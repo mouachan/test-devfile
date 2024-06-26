@@ -111,7 +111,7 @@ components:
             echo 'Waiting for Zookeeper...'
             sleep 1
           done
-          echo 'Zookeeper is ready.'
+          echo 'Zookeeper is ready.';
           bin/kafka-server-start.sh config/server.properties --override replica.fetch.max.bytes=3000000 --override message.max.bytes=3000000 --override listener.security.protocol.map=$${KAFKA_LISTENER_SECURITY_PROTOCOL_MAP} --override listeners=$${KAFKA_LISTENERS} --override advertised.listeners=$${KAFKA_ADVERTISED_LISTENERS} --override zookeeper.connect=$${KAFKA_ZOOKEEPER_CONNECT}
       env:
         - name: LOG_DIR
