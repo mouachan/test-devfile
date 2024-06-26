@@ -67,7 +67,7 @@ components:
       size: 3Gi
   - name: kube
     volume: {}
-  - name: openshift
+  - name: openshift-cli
     container:
       image: quay.io/openshift/origin-cli:4.15
       command: ["tail", "-f", "/dev/null"]
