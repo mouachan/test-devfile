@@ -157,7 +157,7 @@ components:
 commands:
   - id: install-maven
     exec:
-      commandLine: mkdir -p /opt/maven > /tmp/poststart.log 2>&1
+      commandLine: mkdir -p ~/maven > /tmp/poststart.log 2>&1
       component: tools
       env: []
       workingDir: "/"
