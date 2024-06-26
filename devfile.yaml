@@ -144,16 +144,24 @@ components:
   #       - name: kafdrop-port
   #         targetPort: 9000  
 
+# commands:
+#   - id: install-maven
+#     exec:
+#       commandLine: |
+#         mkdir -p /opt/maven \
+#         && curl -fsSL https://archive.apache.org/dist/maven/maven-3/3.8.2/binaries/apache-maven-3.8.2-bin.tar.gz | tar -xzC /opt/maven  > /tmp/install-maven.log 2>&1 \
+#         && echo 'export PATH=/opt/maven/apache-maven-3.8.2/bin:$PATH' >> ~/.bashrc
+#       component: tools
+#       env: []
+#       workingDir: "/"
 commands:
   - id: install-maven
     exec:
-      commandLine: |
-        mkdir -p /opt/maven \
-        && curl -fsSL https://archive.apache.org/dist/maven/maven-3/3.8.2/binaries/apache-maven-3.8.2-bin.tar.gz | tar -xzC /opt/maven  > /tmp/install-maven.log 2>&1 \
-        && echo 'export PATH=/opt/maven/apache-maven-3.8.2/bin:$PATH' >> ~/.bashrc
+      commandLine: echo 'PostStart command ran successfully' > /tmp/poststart.log
       component: tools
       env: []
       workingDir: "/"
+
 events:
   postStart:
     - install-maven
