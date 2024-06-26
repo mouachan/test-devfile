@@ -148,10 +148,9 @@ commands:
   - id: install-maven
     exec:
       commandLine: |
-        rm -rf /usr/share/maven \
-        && curl -fsSL https://archive.apache.org/dist/maven/maven-3/3.8.2/binaries/apache-maven-3.8.2-bin.tar.gz | tar -xzC /usr/share \
-        && mv /usr/share/apache-maven-3.8.2 /usr/share/maven \
-        && ln -sf /usr/share/maven/bin/mvn /usr/bin/mvn
-      component: tools
+        mkdir -p /opt/maven \
+        && curl -fsSL https://archive.apache.org/dist/maven/maven-3/3.8.2/binaries/apache-maven-3.8.2-bin.tar.gz | tar -xzC /opt/maven  > /tmp/install-maven.log 2>&1 \
+        && echo 'export PATH=/opt/maven/apache-maven-3.8.2/bin:$PATH' >> ~/.bashrc
+      component: java17
       env: []
       workingDir: "/"
