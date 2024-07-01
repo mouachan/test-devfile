@@ -157,11 +157,11 @@ commands:
   - id: start-all-apps
     exec:
       commandLine: |
-        nohup mvn quarkus:dev -f $PROJECTS_ROOT/train-capture-image-app/capture-app/pom.xml > $PROJECTS_ROOT/train-capture-image-app/capture-app/output.log 2>&1 &&
-        nohup python $PROJECTS_ROOT/intelligent-train/src/app.py > $PROJECTS_ROOT/intelligent-train/output.log 2>&1 &&
-        nohup mvn quarkus:dev -f $PROJECTS_ROOT/train-ceq-app/pom.xml > $PROJECTS_ROOT/train-ceq-app/output.log 2>&1 &&
-        nohup node $PROJECTS_ROOT/train-controller/app.js > $PROJECTS_ROOT/train-controller/output.log 2>&1 &&
-        nohup mvn quarkus:dev -f $PROJECTS_ROOT/train-monitoring-app/monitoring-app/pom.xml > $PROJECTS_ROOT/monitroing-app/train-monitoring-app/output.log 2>&1
+        nohup mvn quarkus:dev -f $PROJECTS_ROOT/train-capture-image-app/capture-app/pom.xml > $PROJECTS_ROOT/train-capture-image-app/capture-app/output.log 2>&1 &;
+        nohup python $PROJECTS_ROOT/intelligent-train/src/app.py > $PROJECTS_ROOT/intelligent-train/output.log 2>&1 &;
+        nohup mvn quarkus:dev -f $PROJECTS_ROOT/train-ceq-app/pom.xml > $PROJECTS_ROOT/train-ceq-app/output.log 2>&1 &;
+        nohup node $PROJECTS_ROOT/train-controller/app.js > $PROJECTS_ROOT/train-controller/output.log 2>&1 &;
+        nohup mvn quarkus:dev -f $PROJECTS_ROOT/train-monitoring-app/monitoring-app/pom.xml > $PROJECTS_ROOT/monitroing-app/train-monitoring-app/output.log 2>&1 &;
       component: tools
       env: []
       workingDir: "/"
