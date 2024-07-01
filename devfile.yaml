@@ -227,6 +227,7 @@ commands:
         - start-train-ceq
         - start-train-controller
         - start-train-monitoring
+      parallel: true
   - id: stop-all-apps
     exec:
       commandLine: | 
