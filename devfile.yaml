@@ -157,17 +157,17 @@ commands:
   - id: install-python-requirements
     exec:
       commandLine: |
-        pip install -r src/requirement.txt
+        cd /projects/intelligent-train && pip install -r src/requirement.txt
       component: tools
       env: []
-      workingDir: "/projects/intelligent-train"
+      workingDir: "/"
   - id: install-node-requirements
     exec:
       commandLine: |
-        npm install
+       cd projects/train-controller && npm install
       component: tools
       env: []
-      workingDir: "/projects/train-controller"
+      workingDir: "/"
   - id: start-all-apps
     exec:
       commandLine: |
@@ -184,7 +184,7 @@ commands:
     exec:
       commandLine: | 
         pkill -f 'mvn quarkus:dev'
-        pkill -f 'python /projects/src/capp.py'
+        pkill -f 'python /projects/src/app.py'
       component: tools
       env: []
       workingDir: "/"
