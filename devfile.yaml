@@ -157,24 +157,24 @@ commands:
   - id: install-python-requirements
     exec:
       commandLine: |
-        cd /projects/intelligent-train && pip install -r src/requirement.txt
+        cd /projects/intelligent-train && pip install -r src/requirements.txt
       component: tools
       env: []
       workingDir: "/"
   - id: install-node-requirements
     exec:
       commandLine: |
-       npm install
+       cd /projects/train-controller && npm install 2>/dev/null
       component: tools
       env: []
-      workingDir: "/projects/train-controller"
+      workingDir: "/"
   - id: start-all-apps
     exec:
       commandLine: |
         nohup mvn quarkus:dev -f /projects/train-capture-image-app/capture-app/pom.xml > /projects/train-capture-image-app/capture-app/output.log 2>&1 &
         cd /projects/intelligent-train && nohup python src/app.py > /projects/intelligent-train/output.log 2>&1 &
         nohup mvn quarkus:dev -f /projects/train-ceq-app/pom.xml > /projects/train-ceq-app/output.log 2>&1 &
-        nohup node /projects/train-controller/app.js > /projects/train-controller/output.log 2>&1 &
+        nohup export LEGO_BACKEND=mock && node /projects/train-controller/index.js > /projects/train-controller/output.log 2>&1 &
         nohup mvn quarkus:dev -f /projects/train-monitoring-app/monitoring-app/pom.xml > /projects/train-monitoring-app/output.log 2>&1 &
       component: tools
       env: []
@@ -191,5 +191,5 @@ commands:
 events:
   postStart:
     - install-maven
-  #  - install-python-requirements
-  #  - install-node-requirements
+    - install-python-requirements
+    - install-node-requirements
