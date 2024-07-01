@@ -174,10 +174,13 @@ commands:
         nohup mvn quarkus:dev -f /projects/train-capture-image-app/capture-app/pom.xml > /projects/train-capture-image-app/capture-app/output.log 2>&1 &
         cd /projects/intelligent-train && nohup python src/app.py > /projects/intelligent-train/output.log 2>&1 &
         nohup mvn quarkus:dev -f /projects/train-ceq-app/pom.xml > /projects/train-ceq-app/output.log 2>&1 &
-        nohup export LEGO_BACKEND=mock && node /projects/train-controller/index.js > /projects/train-controller/output.log 2>&1 &
+         && nohup node /projects/train-controller/index.js > /projects/train-controller/output.log 2>&1 &
         nohup mvn quarkus:dev -f /projects/train-monitoring-app/monitoring-app/pom.xml > /projects/train-monitoring-app/output.log 2>&1 &
       component: tools
-      env: []
+      env: 
+      - name: LEGO_BACKEND
+        value : mock
+          
       workingDir: "/"
 
   - id: stop-all-apps
