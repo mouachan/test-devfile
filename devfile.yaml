@@ -7,7 +7,7 @@ attributes:
     name: devworkspace-config
     namespace: openshift-devspaces
   controller.devfile.io/storage-type: per-user
-projects:
+/projects:
   - name: train-capture-image-app
     git:
       remotes:
@@ -154,14 +154,28 @@ commands:
       component: tools
       env: []
       workingDir: "/"
+  - id: install-python-requirements
+    exec:
+      commandLine: |
+        pip install -r src/requirement.txt
+      component: tools
+      env: []
+      workingDir: "/projects/intelligent-train"
+  - id: install-node-requirements
+    exec:
+      commandLine: |
+        npm install
+      component: tools
+      env: []
+      workingDir: "/projects/train-controller"
   - id: start-all-apps
     exec:
       commandLine: |
-        nohup mvn quarkus:dev -f $PROJECTS_ROOT/train-capture-image-app/capture-app/pom.xml > $PROJECTS_ROOT/train-capture-image-app/capture-app/output.log 2>&1 &;
-        nohup python $PROJECTS_ROOT/intelligent-train/src/app.py > $PROJECTS_ROOT/intelligent-train/output.log 2>&1 &;
-        nohup mvn quarkus:dev -f $PROJECTS_ROOT/train-ceq-app/pom.xml > $PROJECTS_ROOT/train-ceq-app/output.log 2>&1 &;
-        nohup node $PROJECTS_ROOT/train-controller/app.js > $PROJECTS_ROOT/train-controller/output.log 2>&1 &;
-        nohup mvn quarkus:dev -f $PROJECTS_ROOT/train-monitoring-app/monitoring-app/pom.xml > $PROJECTS_ROOT/monitroing-app/train-monitoring-app/output.log 2>&1 &;
+        nohup mvn quarkus:dev -f /projects/train-capture-image-app/capture-app/pom.xml > /projects/train-capture-image-app/capture-app/output.log 2>&1 &
+        cd /projects/intelligent-train && nohup python src/app.py > /projects/intelligent-train/output.log 2>&1 &
+        nohup mvn quarkus:dev -f /projects/train-ceq-app/pom.xml > /projects/train-ceq-app/output.log 2>&1 &
+        nohup node /projects/train-controller/app.js > /projects/train-controller/output.log 2>&1 &
+        nohup mvn quarkus:dev -f /projects/train-monitoring-app/monitoring-app/pom.xml > /projects/train-monitoring-app/output.log 2>&1 &
       component: tools
       env: []
       workingDir: "/"
@@ -170,7 +184,7 @@ commands:
     exec:
       commandLine: | 
         pkill -f 'mvn quarkus:dev'
-        pkill -f 'python $PROJECTS_ROOT/src/capp.py'
+        pkill -f 'python /projects/src/capp.py'
       component: tools
       env: []
       workingDir: "/"
