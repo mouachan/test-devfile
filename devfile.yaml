@@ -7,7 +7,7 @@ attributes:
     name: devworkspace-config
     namespace: openshift-devspaces
   controller.devfile.io/storage-type: per-user
-/projects:
+projects:
   - name: train-capture-image-app
     git:
       remotes:
@@ -157,17 +157,17 @@ commands:
   - id: install-python-requirements
     exec:
       commandLine: |
-        cd /projects/intelligent-train && pip install -r src/requirement.txt
+        pip install -r src/requirement.txt
       component: tools
       env: []
-      workingDir: "/"
+      workingDir: "/projects/intelligent-train"
   - id: install-node-requirements
     exec:
       commandLine: |
-       cd projects/train-controller && npm install
+       npm install
       component: tools
       env: []
-      workingDir: "/"
+      workingDir: "/projects/train-controller"
   - id: start-all-apps
     exec:
       commandLine: |
