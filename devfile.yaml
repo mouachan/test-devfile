@@ -32,7 +32,7 @@ projects:
 components:
   - name: tools
     container:
-      image: "registry.redhat.io/devspaces/udi-rhel8:3.14-6.1719204830"
+      image: "quay.io/demo-ai-edge-crazy-train/universal-developer-image:opencv"
       args: ['tail', '-f', '/dev/null']
       memoryLimit: 8G
       memoryRequest: 256Mi
