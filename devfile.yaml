@@ -191,3 +191,5 @@ commands:
 events:
   postStart:
     - install-maven
+    - install-python-requirements
+    - install-node-requirements
