@@ -157,10 +157,10 @@ commands:
   - id: install-python-requirements
     exec:
       commandLine: |
-        pip install -r src/requirement.txt
+        cd /projects/intelligent-train && pip install -r src/requirement.txt
       component: tools
       env: []
-      workingDir: "/projects/intelligent-train"
+      workingDir: "/"
   - id: install-node-requirements
     exec:
       commandLine: |
