@@ -8,26 +8,36 @@ attributes:
     namespace: openshift-devspaces
   controller.devfile.io/storage-type: per-user
 projects:
+  - name: vscode-config
+    git:
+      remotes:
+        origin: "https://github.com/mouachan/testdevfile.git"
+    clonePath: "/projects/"
   - name: train-capture-image-app
     git:
       remotes:
         origin: "https://github.com/Demo-AI-Edge-Crazy-Train/train-capture-image-app.git"
+    clonePath: "/projects/train-capture-image-app"
   - name: train-ceq-app
     git:
       remotes:
         origin: "https://github.com/Demo-AI-Edge-Crazy-Train/train-ceq-app.git"
+    clonePath: "/projects/train-ceq-app"
   - name: intelligent-train
     git:
       remotes:
         origin: "https://github.com/Demo-AI-Edge-Crazy-Train/intelligent-train.git"
+    clonePath: "/projects/intelligent-train"
   - name: train-controller
     git:
       remotes:
         origin: "https://github.com/Demo-AI-Edge-Crazy-Train/train-controller.git"
+    clonePath: "/projects/train-controller"
   - name: train-monitoring-app
     git:
       remotes:
         origin: "https://github.com/Demo-AI-Edge-Crazy-Train/train-monitoring-app.git"
+    clonePath: "/projects/train-monitoring-app"
       
 components:
   - name: tools
