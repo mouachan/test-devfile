@@ -182,60 +182,60 @@ commands:
   #       value : mock
           
   #     workingDir: "/"
-  - id: start-capture
-    exec:
-      commandLine: |
-        nohup mvn quarkus:dev -f /projects/train-capture-image-app/capture-app/pom.xml > /projects/train-capture-image-app/capture-app/output.log 2>&1 &
-      component: tools
-      env: []
-      workingDir: "/"
-  - id: start-intelligent-train
-    exec:
-      commandLine: |
-        cd /projects/intelligent-train && nohup python src/app.py > /projects/intelligent-train/output.log 2>&1 &
-      component: tools
-      env: []
-      workingDir: "/"
-  - id: start-train-ceq
-    exec:
-      commandLine: |
-        nohup mvn quarkus:dev -f /projects/train-ceq-app/pom.xml > /projects/train-ceq-app/output.log 2>&1 &
-      component: tools
-      env: []
-      workingDir: "/"
-  - id: start-train-controller
-    exec:
-      commandLine: |
-        nohup node /projects/train-controller/index.js > /projects/train-controller/output.log 2>&1 &
-      component: tools
-      env: 
-      - name: LEGO_BACKEND
-        value : mock
-      workingDir: "/"
-  - id: start-train-monitoring
-    exec:
-      commandLine: |
-        nohup mvn quarkus:dev -f /projects/train-monitoring-app/monitoring-app/pom.xml > /projects/train-monitoring-app/output.log 2>&1 &
-      component: tools
-      env: []
-      workingDir: "/"
-  - id: composite-start-all-apps
-    composite:
-      commands:
-        - start-capture
-        - start-intelligent-train
-        - start-train-ceq
-        - start-train-controller
-        - start-train-monitoring
-      parallel: true
-  - id: stop-all-apps
-    exec:
-      commandLine: | 
-        pkill -f 'mvn quarkus:dev'
-        pkill -f 'python /projects/src/app.py'
-      component: tools
-      env: []
-      workingDir: "/"
+  # - id: start-capture
+  #   exec:
+  #     commandLine: |
+  #       nohup mvn quarkus:dev -f /projects/train-capture-image-app/capture-app/pom.xml > /projects/train-capture-image-app/capture-app/output.log 2>&1 &
+  #     component: tools
+  #     env: []
+  #     workingDir: "/"
+  # - id: start-intelligent-train
+  #   exec:
+  #     commandLine: |
+  #       cd /projects/intelligent-train && nohup python src/app.py > /projects/intelligent-train/output.log 2>&1 &
+  #     component: tools
+  #     env: []
+  #     workingDir: "/"
+  # - id: start-train-ceq
+  #   exec:
+  #     commandLine: |
+  #       nohup mvn quarkus:dev -f /projects/train-ceq-app/pom.xml > /projects/train-ceq-app/output.log 2>&1 &
+  #     component: tools
+  #     env: []
+  #     workingDir: "/"
+  # - id: start-train-controller
+  #   exec:
+  #     commandLine: |
+  #       nohup node /projects/train-controller/index.js > /projects/train-controller/output.log 2>&1 &
+  #     component: tools
+  #     env: 
+  #     - name: LEGO_BACKEND
+  #       value : mock
+  #     workingDir: "/"
+  # - id: start-train-monitoring
+  #   exec:
+  #     commandLine: |
+  #       nohup mvn quarkus:dev -f /projects/train-monitoring-app/monitoring-app/pom.xml > /projects/train-monitoring-app/output.log 2>&1 &
+  #     component: tools
+  #     env: []
+  #     workingDir: "/"
+  # - id: composite-start-all-apps
+  #   composite:
+  #     commands:
+  #       - start-capture
+  #       - start-intelligent-train
+  #       - start-train-ceq
+  #       - start-train-controller
+  #       - start-train-monitoring
+  #     parallel: true
+  # - id: stop-all-apps
+  #   exec:
+  #     commandLine: | 
+  #       pkill -f 'mvn quarkus:dev'
+  #       pkill -f 'python /projects/src/app.py'
+  #     component: tools
+  #     env: []
+  #     workingDir: "/"
 events:
   postStart:
     - install-maven
